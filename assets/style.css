@@ -1,0 +1,153 @@
+/* Social Engagement Control Centre: privacy website.
+   Plain CSS, no external fonts, scripts or trackers. */
+
+:root {
+  --bg: #fbfbfa;
+  --surface: #ffffff;
+  --text: #1d2125;
+  --muted: #545b63;
+  --border: #dfe2e5;
+  --accent: #1f5f8b;
+  --accent-soft: #e8f1f7;
+  --notice-bg: #fff7e0;
+  --notice-border: #e3c35a;
+  --code-bg: #f1f3f4;
+  --measure: 46rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15181b;
+    --surface: #1c2024;
+    --text: #e7e9eb;
+    --muted: #a7aeb5;
+    --border: #2f353b;
+    --accent: #7db8e0;
+    --accent-soft: #1d2b36;
+    --notice-bg: #2c2612;
+    --notice-border: #8a7425;
+    --code-bg: #252a2f;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #15181b;
+  --surface: #1c2024;
+  --text: #e7e9eb;
+  --muted: #a7aeb5;
+  --border: #2f353b;
+  --accent: #7db8e0;
+  --accent-soft: #1d2b36;
+  --notice-bg: #2c2612;
+  --notice-border: #8a7425;
+  --code-bg: #252a2f;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+
+a { color: var(--accent); text-underline-offset: 0.15em; }
+a:hover { text-decoration-thickness: 2px; }
+a:focus-visible, summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+
+.skip-link {
+  position: absolute; left: -999px; top: 0.5rem;
+  background: var(--surface); padding: 0.5rem 0.75rem; border: 1px solid var(--border); z-index: 10;
+}
+.skip-link:focus { left: 1rem; }
+
+/* Header and navigation */
+.site-header { background: var(--surface); border-bottom: 1px solid var(--border); }
+.site-header .inner {
+  max-width: 72rem; margin: 0 auto; padding: 1rem;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem 1.5rem;
+}
+.brand { font-weight: 650; font-size: 1.05rem; color: var(--text); text-decoration: none; letter-spacing: 0.01em; }
+.brand small { display: block; font-weight: 400; color: var(--muted); font-size: 0.85rem; }
+.site-nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; }
+.site-nav a { text-decoration: none; color: var(--muted); padding: 0.25rem 0; border-bottom: 2px solid transparent; }
+.site-nav a:hover { color: var(--text); }
+.site-nav a[aria-current="page"] { color: var(--text); border-bottom-color: var(--accent); font-weight: 600; }
+
+/* Layout */
+.layout { max-width: 72rem; margin: 0 auto; padding: 1.5rem 1rem 4rem; display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+@media (min-width: 64rem) {
+  .layout.with-toc { grid-template-columns: 16rem minmax(0, 1fr); }
+  .toc { position: sticky; top: 1rem; align-self: start; max-height: calc(100vh - 2rem); overflow-y: auto; }
+}
+
+main { max-width: var(--measure); min-width: 0; }
+
+/* Table of contents */
+.toc { font-size: 0.92rem; }
+.toc details { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 0.75rem 1rem; }
+.toc summary { cursor: pointer; font-weight: 600; }
+.toc ol { margin: 0.5rem 0 0; padding-left: 1.4rem; }
+.toc li { margin: 0.2rem 0; }
+.toc a { text-decoration: none; color: var(--muted); }
+.toc a:hover { color: var(--accent); text-decoration: underline; }
+
+/* Typography */
+h1 { font-size: 2rem; line-height: 1.2; margin: 0.5rem 0 0.75rem; }
+h2 { font-size: 1.4rem; line-height: 1.3; margin: 2.75rem 0 0.75rem; padding-top: 1.25rem; border-top: 1px solid var(--border); scroll-margin-top: 1rem; }
+h3 { font-size: 1.12rem; margin: 1.75rem 0 0.5rem; scroll-margin-top: 1rem; }
+h4 { font-size: 1rem; margin: 1.25rem 0 0.4rem; }
+p, ul, ol, dl { margin: 0 0 1rem; }
+li { margin: 0.25rem 0; }
+.lead { font-size: 1.12rem; color: var(--muted); }
+.meta { color: var(--muted); font-size: 0.95rem; }
+code { background: var(--code-bg); padding: 0.1em 0.35em; border-radius: 3px; font-size: 0.92em; overflow-wrap: anywhere; }
+
+/* Notices */
+.notice { background: var(--notice-bg); border: 1px solid var(--notice-border); border-radius: 6px; padding: 0.85rem 1rem; margin: 1rem 0 1.5rem; }
+.notice p:last-child { margin-bottom: 0; }
+.summary-box { background: var(--accent-soft); border-left: 4px solid var(--accent); border-radius: 4px; padding: 1rem 1.25rem; margin: 1.25rem 0 1.5rem; }
+.summary-box ul { margin-bottom: 0; }
+
+
+/* Tables */
+.table-wrap { overflow-x: auto; margin: 0 0 1.25rem; border: 1px solid var(--border); border-radius: 6px; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; background: var(--surface); }
+th, td { text-align: left; vertical-align: top; padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border); }
+th { font-weight: 600; background: var(--accent-soft); }
+tr:last-child td { border-bottom: 0; }
+th[scope="row"] { background: transparent; width: 32%; }
+caption { caption-side: top; text-align: left; padding: 0.6rem 0.75rem; font-weight: 600; font-size: 0.9rem; color: var(--muted); background: var(--surface); }
+.table-wrap:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* Organisation records */
+.org-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; margin: 1.25rem 0; }
+.org-card h3 { margin-top: 0; }
+.org-card dl { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.15rem 1rem; margin: 0; }
+.org-card dt { font-weight: 600; margin-top: 0.6rem; }
+.org-card dd { margin: 0; }
+@media (min-width: 40rem) {
+  .org-card dl { grid-template-columns: 13rem minmax(0, 1fr); }
+  .org-card dt { margin-top: 0; }
+}
+
+ol.steps > li { margin-bottom: 0.75rem; }
+
+.site-footer { border-top: 1px solid var(--border); background: var(--surface); color: var(--muted); font-size: 0.9rem; }
+.site-footer .inner { max-width: 72rem; margin: 0 auto; padding: 1.25rem 1rem; }
+.site-footer p { margin: 0.25rem 0; }
+
+@media print {
+  .site-header, .toc, .skip-link, .site-footer { display: none; }
+  body { background: #fff; color: #000; font-size: 11pt; }
+  .layout { display: block; padding: 0; }
+  main { max-width: none; }
+  a { color: #000; }
+  h2 { break-after: avoid; }
+}
